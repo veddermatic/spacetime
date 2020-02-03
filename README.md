@@ -79,7 +79,7 @@ d.format('nice')
   </div>
 </div>
 
-### [Date Inputs:](https://github.com/smallwins/spacetime/wiki/Input)
+### [Date Inputs:](https://github.com/spencermountain/spacetime/wiki/Input)
 
 ```js
 //epoch
@@ -117,6 +117,8 @@ s = s.day('monday') // Change to (this week's) monday
 s = s.month('march') // Change to (this year's) March 1st
 s = s.quarter(2) // Change to April 1st
 s.era() // 'BC'/'AD'
+s.decade() // 2000
+s.century() // 21
 
 // Percentage-based information
 s.progress().month = 0.23 // We're a quarter way through the month
@@ -142,6 +144,7 @@ s = s.last('year') //start of the last year
 s.clone() // Make a copy
 s.isValid() // Sept 32nd → false
 s.isAwake() // it's between 8am → 10pm
+s.json() // get values in every unit as key-val object
 ```
 
 ### Comparisons:
@@ -226,7 +229,7 @@ s.isDST() // True
 s.timezones
 ```
 
-### [Date Formatting](https://github.com/smallwins/spacetime/wiki/Formatting):
+### [Date Formatting](https://github.com/spencermountain/spacetime/wiki/Formatting):
 
 ```js
 // Date + time formatting
@@ -244,6 +247,39 @@ s.format('{time}{ampm} sharp') // '2:30pm sharp'
 //if you prefer, you can also use unix-formatting
 s.unixFmt('yyyy.MM.dd h:mm a') // '2017.Nov.16 11:34 AM'
 ```
+
+## Limitations & caveats
+
+#### ◆ Historical timezone info
+
+DST changes move around all the time, and timezones pop-in and out of existence.
+We store and use only the latest DST information, and apply it to historical dates.
+
+#### ◆ DST changes within 1-hour
+
+when very-close to a DST change, we can get the hour wrong, by 1.
+
+This is [a tricky](https://github.com/spencermountain/spacetime/issues/182) order-of-operations issue.
+
+To most people, DST changes occur during an unspecified time overnight, anyways.
+
+#### ◆ International date line
+
+`.goto()` never crosses the date-line. This is mostly the intuitive behaviour.
+
+But if you're in `Fiji` (just west of the date line), and you go to `Midway` (just east of the date line), .goto() will subtract a bunch of hours, instead of just adding one.
+
+#### ◆ Destructive changes
+
+if it's `2:30pm` and you add a month, it should still be `2:30pm`. Some changes are more destructive than others. Many of thse choices are subjective, but also sensible.
+
+#### ◆ 0-based vs 1-based ...
+
+for better or worse we copy the JavaScript spec for 0-based months, and 1-based dates.
+
+ISO-formatting is different, so keep on your toes.
+
+see [more considerations and gotchas](https://github.com/spencermountain/spacetime/wiki)
 
 ## Options
 
@@ -290,22 +326,24 @@ s.isHappyHour()
 //true
 ```
 
-
 #### DD/MM/YYY interpretation:
 
 by default spacetime uses the American interpretation of ambiguous date formats, like javascript does:
+
 ```js
 spacetime('12/01/2018') //dec 1st
 
 // unless it's clear (>12):
 spacetime('13/01/2018') //jan 13th
 ```
+
 you can change this behaviour by passing in a `dmy` option, like this:
+
 ```js
 spacetime('12/01/2018', null, { dmy: true }) //jan 12th
 ```
-this format is more common in [britain, and south america](https://en.wikipedia.org/wiki/Date_format_by_country).
 
+this format is more common in [britain, and south america](https://en.wikipedia.org/wiki/Date_format_by_country).
 
 #### Custom languages:
 
@@ -342,8 +380,6 @@ s.dayName()
 //saturday
 ```
 
-### [More info, considerations, & caveats](https://github.com/smallwins/spacetime/wiki)
-
 ### See also:
 
 - [Luxon](https://moment.github.io/luxon/) - a small library from the clever moment people
@@ -354,10 +390,7 @@ Thank you to the amazing [timeanddate.com](https://www.timeanddate.com/)
 
 <div align="center">
   <div>Made with caution + great-patience,</div>
-  <div>by <a href="https://spencermountain.github.io/">Spencer Kelly</a>, and <a href="https://twitter.com/begin">SmallWins</a></div>
-  <a href="https://begin.com">
-    <img width="50" src="https://user-images.githubusercontent.com/399657/31141177-9f339dc8-a844-11e7-8330-0cee2dc12128.jpg"/>
-  </a>
+  <div>by <a href="https://spencermountain.github.io/">Spencer Kelly</a></div>
 </div>
 
 Apache 2.0

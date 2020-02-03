@@ -1,8 +1,100 @@
-# v6.0.0 
+This project follows semVer, where:
+
+- **[major]** is an API, or result-format change
+- **[minor]** is a result change
+- **[patch]** is a bugfix
+
+### v6.4.1
+
+- run mjs build through babel (#175)
+
+## v6.4.0
+
+- add `.toLocalDate()`
+- update zonefile to 2020
+- add Famagusta and Yangon iana zones
+
+## v6.3.0
+
+- add `.decade()`
+- add `.century()`
+- add `.millenium()`
+- add `.json()` method
+- remove dst for Brazil
+- fix .week() counting logic
+- change overflow error-amount for #166
+
+## v6.2.1
+
+- fix typescript types
+
+## v6.2.0
+
+- add config for `dmy` british date parsing
+- support `18-feb-2019` format
+
+## v6.1.0
+
+- support for +14 timezones.
+
+# v6.0.0
+
 - remove 'informal' timezone parsing (like `.goto('south africa')`)
 - remove 'display' info from `.timezone()` like 'EST' (move to [spacetime-informal](https://github.com/spencermountain/spacetime-informal/))
-- throw error on an invalid timezone  #150
+- throw error on an invalid timezone #150
 - optimize `.week()` method
+
+---
+
+### 5.9.0
+
+- add support for changing start/end of the week
+- allow more flexible `.i18n()` inputs
+
+### 5.8.0
+
+- faster diff for large-number of months
+- more support for esoteric iso formats
+- add format('iso-month')
+- change fallback behaviour for set failure edge-cases
+
+### 5.7.0
+
+- avoid setting dates/months/hours past maximums and minimums
+- `.hour(24)` now changes date to tomorrow
+- faster diffs for large (decade-long) ranges
+- **[big]** fix awkward diff/since issues ('dec 25->jan 5' should be 0 years)
+
+### 5.6.0
+
+- support typescript types by Jacob Craig
+- use given timezone when given a spacetime object as an input
+- adds `.every(unit, to)` method
+- set UTC as default fallback timezone
+
+### 5.4.0
+
+- support more time input formats
+- fixes offset input issue [#103](https://github.com/spencermountain/spacetime/issues/103)
+
+### 5.3.0
+
+- added more iana timezones
+- fixed zero-padding in iso offsets
+- support half hour offsets in iso formats
+
+### 5.2.0
+
+- `next()` and `last()` methods
+- support for century and decades
+- full-api tests and docs
+
+### 5.1.0
+
+- titlecase short-forms of months, days in `.format()`
+- support implicit date in `nov 2019`
+- support `tues March 5th 2018` inputs
+- pretty-dramatic speed optimizations (~50%)
 
 # v5.0.0 🚨 -breaking
 
@@ -16,55 +108,43 @@
 - support city-names, `EST`, `PDT`, etc as input
 - set default `silent: true` to avoid unwanted logging
 
-### 5.1.0
+---
 
-- titlecase short-forms of months, days in `.format()`
-- support implicit date in `nov 2019`
-- support `tues March 5th 2018` inputs
-- pretty-dramatic speed optimizations (~50%)
+### v4.5.0
 
-### 5.2.0
+- update a few TZ offsets in mostly eastern-Russia
+- updates to 2019 Palestinian dst dates
+- fixes for missing immutable setter methods
 
-- `next()` and `last()` methods
-- support for century and decades
-- full-api tests and docs
+### v4.4.0
 
-### 5.3.0
+- **big** - swap interpretation of ISO date offsets `-0500 → +5 offset` [#61](https://github.com/spencermountain/spacetime/issues/61)
 
-- added more iana timezones
-- fixed zero-padding in iso offsets
-- support half hour offsets in iso formats
+### v4.3.0
 
-### 5.4.0
+- assume current year with input `spacetime('July 5th')`
+- do larger `.diff()` operations (gt 1yr) in fast-mode
+- support BC formatting of input and in `s.format('year')`
+- bug fix for iso-format hour-offsets (#58)
 
-- support more time input formats
-- fixes offset input issue [#103](https://github.com/spencermountain/spacetime/issues/103)
+### v4.2.2
 
-### 5.6.0
+- adds `.extend()` method for authoring plugins
 
-- support typescript types by Jacob Craig
-- use given timezone when given a spacetime object as an input
-- adds `.every(unit, to)` method
-- set UTC as default fallback timezone
+## v4.2.0
 
-### 5.7.0
+- fix dayOfYear regression on 31st days
+- support space in ISO-186 format
+- update deps, use babel-env
 
-- avoid setting dates/months/hours past maximums and minimums
-- `.hour(24)` now changes date to tomorrow
-- faster diffs for large (decade-long) ranges
-- **[big]** fix awkward diff/since issues ('dec 25->jan 5' should be 0 years)
+## v4.1.0
 
-### 5.8.0
+- fix 'February 30th' regression
+- remove denormalized `.valid` boolean on Spacetime class
 
-- faster diff for large-number of months
-- more support for esoteric iso formats
-- add format('iso-month')
-- change fallback behaviour for set failure edge-cases
+## v4.0.1
 
-### 5.9.0
-
-- add support for changing start/end of the week
-- allow more flexible `.i18n()` inputs
+- support `.from()` and `.fromNow()` methods
 
 ### v4.0.0
 
@@ -77,41 +157,15 @@
 - `.diff()` without a unit does a couple units together
 - update zonefile to proper dst-flip time
 
-## v4.0.1
+---
 
-- support `.from()` and `.fromNow()` methods
+### v3.2.0
 
-## v4.1.0
+- update zonefile to 2018 dst dates
 
-- fix 'February 30th' regression
-- remove denormalized `.valid` boolean on Spacetime class
+### v3.1.0
 
-## v4.2.0
-
-- fix dayOfYear regression on 31st days
-- support space in ISO-186 format
-- update deps, use babel-env
-
-### v4.2.2
-
-- adds `.extend()` method for authoring plugins
-
-### v4.3.0
-
-- assume current year with input `spacetime('July 5th')`
-- do larger `.diff()` operations (gt 1yr) in fast-mode
-- support BC formatting of input and in `s.format('year')`
-- bug fix for iso-format hour-offsets (#58)
-
-### v4.4.0
-
-- **big** - swap interpretation of ISO date offsets `-0500 → +5 offset` [#61](https://github.com/spencermountain/spacetime/issues/61)
-
-### v4.5.0
-
-- update a few TZ offsets in mostly eastern-Russia
-- updates to 2019 Palestinian dst dates
-- fixes for missing immutable setter methods
+- dramatic speedup by optimizing walkTo method
 
 ## v3.0.1
 
@@ -120,20 +174,7 @@
 - add epoch-seconds warning msg
 - allow getting/setting new timezones
 
-### v3.1.0
-
-- dramatic speedup by optimizing walkTo method
-
-### v3.2.0
-
-- update zonefile to 2018 dst dates
-
-## v2.0.0
-
-- fix major [southern-hemisphere issue](https://github.com/smallwins/spacetime/issues/27)
-- re-structure `d.timezone()` response
-- add `.hemisphere()` method
-- use proper short-day forms
+---
 
 ## v2.1.0
 
@@ -141,16 +182,18 @@
 - add `.era()` get/set method
 - found 6 or 7 wrong offsets
 
-# v1.0.0 :rocket:
+## v2.0.0
 
-## v1.2.0
+- fix major [southern-hemisphere issue](https://github.com/spencermountain/spacetime/issues/27)
+- re-structure `d.timezone()` response
+- add `.hemisphere()` method
+- use proper short-day forms
 
-- adds isBetween() method
+---
 
-## v1.3.0
+## v1.3.2
 
-- adds `spacetime.whereIts()` method
-- actually implement 😓 season by hemisphere
+- fix for inf-loop regression on DST-switch
 
 ## v1.3.1
 
@@ -158,6 +201,13 @@
 - adds `spacetime.nearest()` method
 - support for `"quarterHour"` units - '4:15, 4:30, 4:45, 5:00' etc
 
-## v1.3.2
+## v1.3.0
 
-- fix for inf-loop regression on DST-switch
+- adds `spacetime.whereIts()` method
+- actually implement 😓 season by hemisphere
+
+## v1.2.0
+
+- adds isBetween() method
+
+# v1.0.0 :rocket:

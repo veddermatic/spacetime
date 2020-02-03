@@ -1,8 +1,9 @@
+/* spencermountain/spacetime 6.4.1 Apache 2.0 */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
 	(global = global || self, global.spacetime = factory());
-}(this, function () { 'use strict';
+}(this, (function () { 'use strict';
 
 	function createCommonjsModule(fn, module) {
 		return module = { exports: {} }, fn(module, module.exports), module.exports;
@@ -137,7 +138,7 @@
 
 	var zeroPad = fns.zeroPad;
 
-	var toString = function toString(d) {
+	var serialize = function serialize(d) {
 	  return zeroPad(d.getMonth() + 1) + '/' + zeroPad(d.getDate()) + ':' + zeroPad(d.getHours());
 	}; // a timezone will begin with a specific offset in january
 	// then some will switch to something else between november-march
@@ -155,7 +156,7 @@
 	  shift = shift * 60 * 1000; //in ms
 
 	  d = new Date(epoch + shift);
-	  var current = toString(d); //eg. is it after ~november?
+	  var current = serialize(d); //eg. is it after ~november?
 
 	  if (current >= start) {
 	    //eg. is it before ~march~ too?
@@ -207,7 +208,7 @@
 	var _build = {
 		"9|s": "2/dili,2/jayapura",
 		"9|n": "2/chita,2/khandyga,2/pyongyang,2/seoul,2/tokyo,11/palau",
-		"9.5|s|04/07:03->10/06:02": "4/adelaide,4/broken_hill,4/south,4/yancowinna",
+		"9.5|s|04/05:03->10/04:02": "4/adelaide,4/broken_hill,4/south,4/yancowinna",
 		"9.5|s": "4/darwin,4/north",
 		"8|s": "12/casey,2/kuala_lumpur,2/makassar,2/singapore,4/perth,4/west",
 		"8|n|03/25:03->09/29:23": "2/ulan_bator",
@@ -217,90 +218,90 @@
 		"7|n": "2/bangkok,2/barnaul,2/ho_chi_minh,2/hovd,2/krasnoyarsk,2/novokuznetsk,2/novosibirsk,2/phnom_penh,2/pontianak,2/saigon,2/tomsk,2/vientiane",
 		"6|s": "12/vostok",
 		"6|n": "2/almaty,2/bishkek,2/dacca,2/dhaka,2/kashgar,2/omsk,2/qyzylorda,2/thimbu,2/thimphu,2/urumqi,9/chagos",
-		"6.5|n": "2/rangoon,9/cocos",
+		"6.5|n": "2/rangoon,2/yangon,9/cocos",
 		"5|s": "12/mawson,9/kerguelen",
 		"5|n": "2/aqtau,2/aqtobe,2/ashgabat,2/ashkhabad,2/atyrau,2/baku,2/dushanbe,2/karachi,2/oral,2/samarkand,2/tashkent,2/yekaterinburg,9/maldives",
 		"5.75|n": "2/kathmandu,2/katmandu",
 		"5.5|n": "2/calcutta,2/colombo,2/kolkata",
 		"4|s": "9/reunion",
 		"4|n": "2/dubai,2/muscat,2/tbilisi,2/yerevan,8/astrakhan,8/samara,8/saratov,8/ulyanovsk,8/volgograd,2/volgograd,9/mahe,9/mauritius",
-		"4.5|n|03/22:00->09/21:24": "2/tehran",
+		"4.5|n|03/21:00->09/20:24": "2/tehran",
 		"4.5|n": "2/kabul",
 		"3|s": "12/syowa,9/antananarivo",
-		"3|n|03/31:03->10/27:04": "2/nicosia,8/athens,8/bucharest,8/helsinki,8/kiev,8/mariehamn,8/nicosia,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye",
-		"3|n|03/31:02->10/27:03": "8/chisinau,8/tiraspol",
-		"3|n|03/31:00->10/26:24": "2/beirut",
-		"3|n|03/29:02->10/27:02": "2/jerusalem,2/tel_aviv",
-		"3|n|03/29:00->10/26:01": "2/gaza,2/hebron",
-		"3|n|03/29:00->10/25:01": "2/amman",
-		"3|n|03/29:00->10/24:24": "2/damascus",
+		"3|n|03/29:03->10/25:04": "2/famagusta,2/nicosia,8/athens,8/bucharest,8/helsinki,8/kiev,8/mariehamn,8/nicosia,8/riga,8/sofia,8/tallinn,8/uzhgorod,8/vilnius,8/zaporozhye",
+		"3|n|03/29:02->10/25:03": "8/chisinau,8/tiraspol",
+		"3|n|03/29:00->10/24:24": "2/beirut",
+		"3|n|03/27:02->10/25:02": "2/jerusalem,2/tel_aviv",
+		"3|n|03/27:00->10/31:01": "2/gaza,2/hebron",
+		"3|n|03/27:00->10/30:01": "2/amman",
+		"3|n|03/27:00->10/29:24": "2/damascus",
 		"3|n": "0/addis_ababa,0/asmara,0/asmera,0/dar_es_salaam,0/djibouti,0/juba,0/kampala,0/mogadishu,0/nairobi,2/aden,2/baghdad,2/bahrain,2/istanbul,2/kuwait,2/qatar,2/riyadh,8/istanbul,8/kirov,8/minsk,8/moscow,8/simferopol,9/comoro,9/mayotte",
-		"2|s|03/31:02->10/27:02": "12/troll",
+		"2|s|03/29:02->10/25:02": "12/troll",
 		"2|s": "0/gaborone,0/harare,0/johannesburg,0/lubumbashi,0/lusaka,0/maputo,0/maseru,0/mbabane",
-		"2|n|03/31:02->10/27:03": "0/ceuta,arctic/longyearbyen,3/jan_mayen,8/amsterdam,8/andorra,8/belgrade,8/berlin,8/bratislava,8/brussels,8/budapest,8/busingen,8/copenhagen,8/gibraltar,8/ljubljana,8/luxembourg,8/madrid,8/malta,8/monaco,8/oslo,8/paris,8/podgorica,8/prague,8/rome,8/san_marino,8/sarajevo,8/skopje,8/stockholm,8/tirane,8/vaduz,8/vatican,8/vienna,8/warsaw,8/zagreb,8/zurich",
+		"2|n|03/29:02->10/25:03": "0/ceuta,arctic/longyearbyen,3/jan_mayen,8/amsterdam,8/andorra,8/belgrade,8/berlin,8/bratislava,8/brussels,8/budapest,8/busingen,8/copenhagen,8/gibraltar,8/ljubljana,8/luxembourg,8/madrid,8/malta,8/monaco,8/oslo,8/paris,8/podgorica,8/prague,8/rome,8/san_marino,8/sarajevo,8/skopje,8/stockholm,8/tirane,8/vaduz,8/vatican,8/vienna,8/warsaw,8/zagreb,8/zurich",
 		"2|n": "0/blantyre,0/bujumbura,0/cairo,0/khartoum,0/kigali,0/tripoli,8/kaliningrad",
 		"1|s|04/02:01->09/03:03": "0/windhoek",
 		"1|s": "0/kinshasa,0/luanda",
-		"1|n|05/05:03->06/09:02": "0/casablanca,0/el_aaiun",
-		"1|n|03/31:01->10/27:02": "3/canary,3/faeroe,3/faroe,3/madeira,8/belfast,8/dublin,8/guernsey,8/isle_of_man,8/jersey,8/lisbon,8/london",
+		"1|n|04/19:03->05/24:02": "0/casablanca,0/el_aaiun",
+		"1|n|03/29:01->10/25:02": "3/canary,3/faeroe,3/faroe,3/madeira,8/belfast,8/dublin,8/guernsey,8/isle_of_man,8/jersey,8/lisbon,8/london",
 		"1|n": "0/algiers,0/bangui,0/brazzaville,0/douala,0/lagos,0/libreville,0/malabo,0/ndjamena,0/niamey,0/porto-novo,0/tunis",
 		"14|n": "11/kiritimati",
-		"13|s|04/07:04->09/29:03": "11/apia",
+		"13|s|04/05:04->09/27:03": "11/apia",
 		"13|s|01/15:02->11/05:03": "11/tongatapu",
 		"13|n": "11/enderbury,11/fakaofo",
-		"12|s|04/07:03->09/29:02": "12/mcmurdo,12/south_pole,11/auckland",
-		"12|s|01/13:03->11/03:02": "11/fiji",
+		"12|s|04/05:03->09/27:02": "12/mcmurdo,12/south_pole,11/auckland",
+		"12|s|01/12:03->11/08:02": "11/fiji",
 		"12|n": "2/anadyr,2/kamchatka,2/srednekolymsk,11/funafuti,11/kwajalein,11/majuro,11/nauru,11/tarawa,11/wake,11/wallis",
-		"12.75|s|04/07:03->04/07:02": "11/chatham",
+		"12.75|s|04/05:03->04/05:02": "11/chatham",
 		"11|s": "12/macquarie,11/bougainville",
 		"11|n": "2/magadan,2/sakhalin,11/efate,11/guadalcanal,11/kosrae,11/noumea,11/pohnpei,11/ponape",
-		"11.5|n": "11/norfolk",
-		"10|s|04/07:03->10/06:02": "4/act,4/canberra,4/currie,4/hobart,4/melbourne,4/nsw,4/sydney,4/tasmania,4/victoria",
+		"11.5|n|04/05:03->10/04:02": "11/norfolk",
+		"10|s|04/05:03->10/04:02": "4/act,4/canberra,4/currie,4/hobart,4/melbourne,4/nsw,4/sydney,4/tasmania,4/victoria",
 		"10|s": "12/dumontdurville,4/brisbane,4/lindeman,4/queensland",
 		"10|n": "2/ust-nera,2/vladivostok,2/yakutsk,11/chuuk,11/guam,11/port_moresby,11/saipan,11/truk,11/yap",
-		"10.5|s|04/07:01->10/06:02": "4/lhi,4/lord_howe",
-		"0|n|03/31:00->10/27:01": "1/scoresbysund,3/azores",
+		"10.5|s|04/05:01->10/04:02": "4/lhi,4/lord_howe",
+		"0|n|03/29:00->10/25:01": "1/scoresbysund,3/azores",
 		"0|n": "0/abidjan,0/accra,0/bamako,0/banjul,0/bissau,0/conakry,0/dakar,0/freetown,0/lome,0/monrovia,0/nouakchott,0/ouagadougou,0/sao_tome,0/timbuktu,1/danmarkshavn,3/reykjavik,3/st_helena,13/gmt,13/gmt+0,13/gmt-0,13/gmt0,13/greenwich,13/utc,13/universal,13/zulu",
-		"-9|n|03/10:02->11/03:02": "1/adak,1/atka",
+		"-9|n|03/08:02->11/01:02": "1/adak,1/atka",
 		"-9|n": "11/gambier",
 		"-9.5|n": "11/marquesas",
-		"-8|n|03/10:02->11/03:02": "1/anchorage,1/juneau,1/metlakatla,1/nome,1/sitka,1/yakutat",
+		"-8|n|03/08:02->11/01:02": "1/anchorage,1/juneau,1/metlakatla,1/nome,1/sitka,1/yakutat",
 		"-8|n": "11/pitcairn",
-		"-7|n|03/10:02->11/03:02": "1/dawson,1/ensenada,1/los_angeles,1/santa_isabel,1/tijuana,1/vancouver,1/whitehorse,6/pacific,6/yukon,10/bajanorte",
+		"-7|n|03/08:02->11/01:02": "1/dawson,1/ensenada,1/los_angeles,1/santa_isabel,1/tijuana,1/vancouver,1/whitehorse,6/pacific,6/yukon,10/bajanorte",
 		"-7|n": "1/creston,1/dawson_creek,1/hermosillo,1/phoenix",
-		"-6|s|04/06:22->09/07:22": "7/easterisland,11/easter",
-		"-6|n|04/07:02->10/27:02": "1/chihuahua,1/mazatlan,10/bajasur",
-		"-6|n|03/10:02->11/03:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/ojinaga,1/shiprock,1/yellowknife,6/mountain",
+		"-6|s|04/04:22->09/05:22": "7/easterisland,11/easter",
+		"-6|n|04/05:02->10/25:02": "1/chihuahua,1/mazatlan,10/bajasur",
+		"-6|n|03/08:02->11/01:02": "1/boise,1/cambridge_bay,1/denver,1/edmonton,1/inuvik,1/ojinaga,1/shiprock,1/yellowknife,6/mountain",
 		"-6|n": "1/belize,1/costa_rica,1/el_salvador,1/guatemala,1/managua,1/regina,1/swift_current,1/tegucigalpa,6/east-saskatchewan,6/saskatchewan,11/galapagos",
 		"-5|s": "1/lima,1/rio_branco,5/acre",
-		"-5|n|04/07:02->10/27:02": "1/bahia_banderas,1/merida,1/mexico_city,1/monterrey,10/general",
+		"-5|n|04/05:02->10/25:02": "1/bahia_banderas,1/merida,1/mexico_city,1/monterrey,10/general",
 		"-5|n|03/12:03->11/05:01": "1/north_dakota",
-		"-5|n|03/10:02->11/03:02": "1/chicago,1/knox_in,1/matamoros,1/menominee,1/rainy_river,1/rankin_inlet,1/resolute,1/winnipeg,6/central",
+		"-5|n|03/08:02->11/01:02": "1/chicago,1/knox_in,1/matamoros,1/menominee,1/rainy_river,1/rankin_inlet,1/resolute,1/winnipeg,6/central",
 		"-5|n": "1/atikokan,1/bogota,1/cancun,1/cayman,1/coral_harbour,1/eirunepe,1/guayaquil,1/jamaica,1/panama,1/porto_acre",
 		"-4|s|05/13:23->08/13:01": "12/palmer",
-		"-4|s|04/06:24->09/08:00": "1/santiago,7/continental",
-		"-4|s|03/23:24->10/06:00": "1/asuncion",
+		"-4|s|04/04:24->09/06:00": "1/santiago,7/continental",
+		"-4|s|03/21:24->10/04:00": "1/asuncion",
 		"-4|s|02/16:24->11/03:00": "1/campo_grande,1/cuiaba",
 		"-4|s": "1/la_paz,1/manaus,5/west",
 		"-4|n|03/12:03->11/05:01": "1/indiana,1/kentucky",
-		"-4|n|03/10:02->11/03:02": "1/detroit,1/fort_wayne,1/grand_turk,1/indianapolis,1/iqaluit,1/louisville,1/montreal,1/nassau,1/new_york,1/nipigon,1/pangnirtung,1/port-au-prince,1/thunder_bay,1/toronto,6/eastern",
-		"-4|n|03/10:00->11/03:01": "1/havana",
+		"-4|n|03/08:02->11/01:02": "1/detroit,1/fort_wayne,1/grand_turk,1/indianapolis,1/iqaluit,1/louisville,1/montreal,1/nassau,1/new_york,1/nipigon,1/pangnirtung,1/port-au-prince,1/thunder_bay,1/toronto,6/eastern",
+		"-4|n|03/08:00->11/01:01": "1/havana",
 		"-4|n": "1/anguilla,1/antigua,1/aruba,1/barbados,1/blanc-sablon,1/boa_vista,1/caracas,1/curacao,1/dominica,1/grenada,1/guadeloupe,1/guyana,1/kralendijk,1/lower_princes,1/marigot,1/martinique,1/montserrat,1/port_of_spain,1/porto_velho,1/puerto_rico,1/santo_domingo,1/st_barthelemy,1/st_kitts,1/st_lucia,1/st_thomas,1/st_vincent,1/tortola,1/virgin",
-		"-3|s|02/16:24->11/03:00": "1/sao_paulo,5/east",
-		"-3|s": "1/argentina,1/buenos_aires,1/cordoba,1/fortaleza,1/montevideo,1/punta_arenas,12/rothera,3/stanley",
-		"-3|n|03/10:02->11/03:02": "1/glace_bay,1/goose_bay,1/halifax,1/moncton,1/thule,3/bermuda,6/atlantic",
+		"-3|s": "1/argentina,1/buenos_aires,1/cordoba,1/fortaleza,1/montevideo,1/punta_arenas,1/sao_paulo,12/rothera,3/stanley,5/east",
+		"-3|n|03/08:02->11/01:02": "1/glace_bay,1/goose_bay,1/halifax,1/moncton,1/thule,3/bermuda,6/atlantic",
 		"-3|n": "1/araguaina,1/bahia,1/belem,1/catamarca,1/cayenne,1/jujuy,1/maceio,1/mendoza,1/paramaribo,1/recife,1/rosario,1/santarem",
 		"-2|s": "5/denoronha",
-		"-2|n|03/30:22->10/26:23": "1/godthab",
-		"-2|n|03/10:02->11/03:02": "1/miquelon",
+		"-2|n|03/28:22->10/24:23": "1/godthab",
+		"-2|n|03/08:02->11/01:02": "1/miquelon",
 		"-2|n": "1/noronha,3/south_georgia",
-		"-2.5|n|03/10:02->11/03:02": "1/st_johns,6/newfoundland",
+		"-2.5|n|03/08:02->11/01:02": "1/st_johns,6/newfoundland",
 		"-1|n": "3/cape_verde",
 		"-11|n": "11/midway,11/niue,11/pago_pago,11/samoa",
 		"-10|n": "11/honolulu,11/johnston,11/rarotonga,11/tahiti"
 	};
 
 	var _build$1 = /*#__PURE__*/Object.freeze({
+		__proto__: null,
 		'default': _build
 	});
 
@@ -577,7 +578,7 @@
 	    // console.warn('spacetime warning: missed setting ' + unit)
 	    s.epoch = original; // i mean, but make it close...
 
-	    s.epoch += milliseconds[unit] * diff * 0.97; // i guess?
+	    s.epoch += milliseconds[unit] * diff * 0.89; // i guess?
 	  }
 	}; //find the desired date by a increment/check while loop
 
@@ -599,7 +600,7 @@
 	      var d = s.d;
 	      var current = d.getMonth();
 	      var original = s.epoch;
-	      var startUnit = d.getYear();
+	      var startUnit = d.getFullYear();
 
 	      if (current === n) {
 	        return;
@@ -610,7 +611,7 @@
 	      s.epoch += milliseconds.day * (diff * 28); //special case
 	      //oops, did we change the year? revert it.
 
-	      if (startUnit !== s.d.getYear()) {
+	      if (startUnit !== s.d.getFullYear()) {
 	        s.epoch = original;
 	      } //incriment by day
 
@@ -937,9 +938,9 @@
 	    s = parseTime_1(s, arr[4]);
 	    return s;
 	  }
-	}, //iso "2015-03-25" or "2015/03/25" //0-based-months!
+	}, //iso "2015-03-25" or "2015/03/25" or "2015/03/25 12:26:14 PM"
 	{
-	  reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2})$/,
+	  reg: /^([0-9]{4})[\-\/]([0-9]{1,2})[\-\/]([0-9]{1,2}),?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
 	  parse: function parse(s, arr) {
 	    var obj = {
 	      year: arr[1],
@@ -959,12 +960,12 @@
 	    }
 
 	    walk_1(s, obj);
-	    s = parseTime_1(s);
+	    s = parseTime_1(s, arr[4]);
 	    return s;
 	  }
-	}, //short - uk "03/25/2015"  //0-based-months!
+	}, //mm/dd/yyyy - uk/canada "6/28/2019, 12:26:14 PM"
 	{
-	  reg: /^([0-9]{1,2})[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?$/,
+	  reg: /^([0-9]{1,2})[\-\/]([0-9]{1,2})[\-\/]?([0-9]{4})?,?( [0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
 	  parse: function parse(s, arr) {
 	    var month = parseInt(arr[1], 10) - 1;
 	    var date = parseInt(arr[2], 10); //support dd/mm/yyy
@@ -987,7 +988,7 @@
 	    }
 
 	    walk_1(s, obj);
-	    s = parseTime_1(s);
+	    s = parseTime_1(s, arr[4]);
 	    return s;
 	  }
 	}, //common british format - "25-feb-2015"
@@ -1014,7 +1015,7 @@
 	}, //Long "Mar 25 2015"
 	//February 22, 2017 15:30:00
 	{
-	  reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm)?))?$/i,
+	  reg: /^([a-z]+) ([0-9]{1,2}(?:st|nd|rd|th)?),?( [0-9]{4})?( ([0-9:]+( ?am| ?pm| ?gmt)?))?$/i,
 	  parse: function parse(s, arr) {
 	    var month = months$1[arr[1].toLowerCase()];
 	    var year = parseYear(arr[3]);
@@ -1056,9 +1057,14 @@
 	  }
 	}, //Long "25 Mar 2015"
 	{
-	  reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),?( [0-9]{4})?$/i,
+	  reg: /^([0-9]{1,2}(?:st|nd|rd|th)?) ([a-z]+),?( [0-9]{4})?,? ?([0-9]{1,2}:[0-9]{2}:?[0-9]{0,2}? ?(am|pm|gmt))?$/i,
 	  parse: function parse(s, arr) {
 	    var month = months$1[arr[2].toLowerCase()];
+
+	    if (!month) {
+	      return null;
+	    }
+
 	    var year = parseYear(arr[3]);
 	    var obj = {
 	      year: year,
@@ -1072,14 +1078,19 @@
 	    }
 
 	    walk_1(s, obj);
-	    s = parseTime_1(s);
+	    s = parseTime_1(s, arr[4]);
 	    return s;
 	  }
 	}, {
-	  // '1992'
-	  reg: /^[0-9]{4}$/i,
+	  // '200bc'
+	  reg: /^[0-9,]+ ?b\.?c\.?$/i,
 	  parse: function parse(s, arr) {
-	    var year = parseYear(arr[0]);
+	    var str = arr[0] || ''; //make negative-year
+
+	    str = str.replace(/^([0-9,]+) ?b\.?c\.?$/i, '-$1'); //remove commas
+
+	    str = str.replace(/,/g, '');
+	    var year = parseInt(str.trim(), 10);
 	    var d = new Date();
 	    var obj = {
 	      year: year,
@@ -1097,15 +1108,34 @@
 	    return s;
 	  }
 	}, {
-	  // '200bc'
-	  reg: /^[0-9,]+ ?b\.?c\.?$/i,
+	  // '200ad'
+	  reg: /^[0-9,]+ ?(a\.?d\.?|c\.?e\.?)$/i,
 	  parse: function parse(s, arr) {
-	    var str = arr[0] || ''; //make negative-year
-
-	    str = str.replace(/^([0-9,]+) ?b\.?c\.?$/i, '-$1'); //remove commas
+	    var str = arr[0] || ''; //remove commas
 
 	    str = str.replace(/,/g, '');
 	    var year = parseInt(str.trim(), 10);
+	    var d = new Date();
+	    var obj = {
+	      year: year,
+	      month: d.getMonth(),
+	      date: d.getDate()
+	    };
+
+	    if (hasDate_1(obj) === false) {
+	      s.epoch = null;
+	      return s;
+	    }
+
+	    walk_1(s, obj);
+	    s = parseTime_1(s);
+	    return s;
+	  }
+	}, {
+	  // '1992'
+	  reg: /^[0-9]{4}( ?a\.?d\.?)?$/i,
+	  parse: function parse(s, arr) {
+	    var year = parseYear(arr[0]);
 	    var d = new Date();
 	    var obj = {
 	      year: year,
@@ -1287,8 +1317,11 @@
 	    var m = input.match(strParse[i].reg);
 
 	    if (m) {
-	      s = strParse[i].parse(s, m, givenTz);
-	      return s;
+	      var res = strParse[i].parse(s, m, givenTz);
+
+	      if (res !== null) {
+	        return res;
+	      }
 	    }
 	  }
 
@@ -1475,6 +1508,9 @@
 	  era: function era(s) {
 	    return s.era();
 	  },
+	  json: function json(s) {
+	    return s.json();
+	  },
 	  timezone: function timezone(s) {
 	    return s.timezone().name;
 	  },
@@ -1571,10 +1607,14 @@
 
 
 	  if (format.hasOwnProperty(str)) {
-	    var out = String(format[str](s) || '');
+	    var out = format[str](s) || '';
 
-	    if (str !== 'ampm') {
-	      out = fns.titleCase(out);
+	    if (str !== 'json') {
+	      out = String(out);
+
+	      if (str !== 'ampm') {
+	        out = fns.titleCase(out);
+	      }
 	    }
 
 	    return out;
@@ -2338,7 +2378,8 @@
 	  },
 	  century: function century(s) {
 	    s = s.startOf('year');
-	    var year = s.year();
+	    var year = s.year(); // near 0AD goes '-1 | +1'
+
 	    var decade = parseInt(year / 100, 10) * 100;
 	    s = s.year(decade);
 	    return s;
@@ -2532,6 +2573,8 @@
 
 	var timezone_1 = timezone;
 
+	var units$3 = ['century', 'decade', 'year', 'month', 'date', 'day', 'hour', 'minute', 'second', 'millisecond']; //the spacetime instance methods (also, the API)
+
 	var methods = {
 	  set: function set(input$1, tz) {
 	    var s = this.clone();
@@ -2640,6 +2683,14 @@
 	    console.log('');
 	    console.log(format_1(this, 'full-short'));
 	    return this;
+	  },
+	  json: function json() {
+	    var _this = this;
+
+	    return units$3.reduce(function (h, unit) {
+	      h[unit] = _this[unit]();
+	      return h;
+	    }, {});
 	  },
 	  debug: function debug() {
 	    var tz = this.timezone();
@@ -3159,7 +3210,7 @@
 	    for (var i = 1; i <= month; i++) {
 	      tmp = new Date();
 	      tmp.setDate(1);
-	      tmp.setYear(this.d.getFullYear()); //the year matters, because leap-years
+	      tmp.setFullYear(this.d.getFullYear()); //the year matters, because leap-years
 
 	      tmp.setHours(1);
 	      tmp.setMinutes(1);
@@ -3173,6 +3224,7 @@
 	  },
 	  //since the start of the year
 	  week: function week(num) {
+	    // week-setter
 	    if (num !== undefined) {
 	      var s = this.clone();
 	      s = s.month(0);
@@ -3199,8 +3251,16 @@
 
 	    if (tmp.monthName() === 'december') {
 	      tmp = tmp.add(1, 'week');
+	    } // is first monday the 1st?
+
+
+	    var toAdd = 1;
+
+	    if (tmp.date() === 1) {
+	      toAdd = 0;
 	    }
 
+	    tmp = tmp.minus(1, 'second');
 	    var thisOne = this.epoch; //if the week technically hasn't started yet
 
 	    if (tmp.epoch > thisOne) {
@@ -3215,7 +3275,7 @@
 
 	    for (; i < 52; i++) {
 	      if (tmp.epoch > thisOne) {
-	        return i;
+	        return i + toAdd;
 	      }
 
 	      tmp = tmp.add(1, 'week');
@@ -3328,6 +3388,120 @@
 	    }
 
 	    return 'AD';
+	  },
+	  // 2019 -> 2010
+	  decade: function decade(input) {
+	    if (input !== undefined) {
+	      input = String(input);
+	      input = input.replace(/([0-9])'?s$/, '$1'); //1950's
+
+	      input = input.replace(/([0-9])(th|rd|st|nd)/, '$1'); //fix ordinals
+
+	      if (!input) {
+	        console.warn('Spacetime: Invalid decade input');
+	        return this;
+	      } // assume 20th century?? for '70s'.
+
+
+	      if (input.length === 2 && /[0-9][0-9]/.test(input)) {
+	        input = '19' + input;
+	      }
+
+	      var year = Number(input);
+
+	      if (isNaN(year)) {
+	        return this;
+	      } // round it down to the decade
+
+
+	      year = Math.floor(year / 10) * 10;
+	      return this.year(year); //.startOf('decade')
+	    }
+
+	    return this.startOf('decade').year();
+	  },
+	  // 1950 -> 19+1
+	  century: function century(input) {
+	    if (input !== undefined) {
+	      if (typeof input === 'string') {
+	        input = input.replace(/([0-9])(th|rd|st|nd)/, '$1'); //fix ordinals
+
+	        input = input.replace(/([0-9]+) ?(b\.?c\.?|a\.?d\.?)/i, function (a, b, c) {
+	          if (c.match(/b\.?c\.?/i)) {
+	            b = '-' + b;
+	          }
+
+	          return b;
+	        });
+	        input = input.replace(/c$/, ''); //20thC
+	      }
+
+	      var year = Number(input);
+
+	      if (isNaN(input)) {
+	        console.warn('Spacetime: Invalid century input');
+	        return this;
+	      } // there is no century 0
+
+
+	      if (year === 0) {
+	        year = 1;
+	      }
+
+	      if (year >= 0) {
+	        year = (year - 1) * 100;
+	      } else {
+	        year = (year + 1) * 100;
+	      }
+
+	      return this.year(year);
+	    } // century getter
+
+
+	    var num = this.startOf('century').year();
+	    num = Math.floor(num / 100);
+
+	    if (num < 0) {
+	      return num - 1;
+	    }
+
+	    return num + 1;
+	  },
+	  // 2019 -> 2+1
+	  millenium: function millenium(input) {
+	    if (input !== undefined) {
+	      if (typeof input === 'string') {
+	        input = input.replace(/([0-9])(th|rd|st|nd)/, '$1'); //fix ordinals
+
+	        input = Number(input);
+
+	        if (isNaN(input)) {
+	          console.warn('Spacetime: Invalid millenium input');
+	          return this;
+	        }
+	      }
+
+	      if (input > 0) {
+	        input -= 1;
+	      }
+
+	      var year = input * 1000; // there is no year 0
+
+	      if (year === 0) {
+	        year = 1;
+	      }
+
+	      return this.year(year);
+	    } // get the current millenium
+
+
+	    var num = Math.floor(this.year() / 1000);
+
+	    if (num >= 0) {
+	      num += 1;
+	    }
+
+	    return num;
 	  }
 	};
 	var _03Year = methods$3;
@@ -3710,6 +3884,11 @@
 	    silent: this.silent,
 	    weekStart: this._weekStart
 	  });
+	}; //return native date object at the same epoch
+
+
+	SpaceTime.prototype.toLocalDate = function () {
+	  return new Date(this.epoch);
 	}; //append more methods
 
 
@@ -3761,7 +3940,7 @@
 
 	var whereIts_1 = whereIts;
 
-	var _version = '6.2.0';
+	var _version = '6.4.1';
 
 	var main$1 = function main(input, tz, options) {
 	  return new spacetime(input, tz, options);
@@ -3803,5 +3982,5 @@
 
 	return src;
 
-}));
+})));
 //# sourceMappingURL=spacetime.js.map
